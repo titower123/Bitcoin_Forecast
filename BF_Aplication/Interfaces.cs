@@ -2,7 +2,4 @@
 using System.Diagnostics.Metrics;
 namespace Bitcoin_Forecast.Application;
 
-public interface IBitcoinPriceRepository
-{
-    Task<List<Instrument>> GetBitcoinPrices(DateTime Date);
-}
+public interface IBitcoinPrice;

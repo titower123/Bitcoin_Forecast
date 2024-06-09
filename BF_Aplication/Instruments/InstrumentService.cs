@@ -9,16 +9,14 @@ public class InstrumentService(IRepository<Instrument> repository) : IService
     public async Task<IEnumerable<InstrumentDTO>> GetInstrumentsAsync(CancellationToken cancellationToken = default) =>
         (await Repository.Get(cancellationToken)).Select(x => (InstrumentDTO)x);
 
-    public async Task RegisterOrUpdateInstrumentsAsync(IEnumerable<InstrumentDTO> Instruments, CancellationToken cancellationToken = default)
+    public async Task UpdateInstrumentsAsync(IEnumerable<InstrumentDTO> Instruments, CancellationToken cancellationToken = default)
     {
         var newInstruments = from Instrument in Instruments
                          where Instrument.Id is null
                          select new Instrument()
                          {
-                             Capability = instrument.Capability,
-                             Description = instrument.Description,
-                             Name = instrument.Name,
-                             Productivity = instrument.Productivity
+                             Quantity = instrument.Quantity,
+                             Name = instrument.Name
                          };
 
         var repo = await Repository.Get(cancellationToken);
@@ -28,14 +26,12 @@ public class InstrumentService(IRepository<Instrument> repository) : IService
 
         foreach (var (updatedInstrument, oldInstrument) in newOldInstrumentCouples)
         {
-            oldInstrument.Name = updatedInstrument.Name;
-            oldInstrument.Capability = updatedInstrument.Capability;
-            oldInstrument.Description = updatedInstrument.Description;
+            oldInstrument.Quantity = updatedInstrument.Quantity;
             oldInstrument.Productivity = updatedInstrument.Productivity;
         }
 
         // todo: validation object
-        await Repository.AddRange(newInstruments, cancellationToken);
-        await Repository.UpdateRange(repo, cancellationToken);
+        await Repository.AddQuantity(newInstruments, cancellationToken);
+        await Repository.UpdateQuantity(repo, cancellationToken);
     }
 }

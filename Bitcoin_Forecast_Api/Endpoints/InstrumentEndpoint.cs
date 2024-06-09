@@ -5,7 +5,7 @@ using Bitcoin_Forecast.Core.DTOs;
 
 namespace Bitcoin_Forecast_Api.Endpoints;
 
-public static class ProjectEndpoint
+public static class InstrumentEndpoint
 {
 
     public static void MapProjectEndpoints(this IEndpointRouteBuilder routes)

@@ -1,5 +1,5 @@
 using Bitcoin_Forecast_Api.Endpoints;
-using project_management_Infrastructure.Db;
+using Bitcoin_Forecast_Infrastructure.Db;
 using Bitcoin_Forecast_Api.Application;
 using Bitcoin_Forecast.Core;
 
