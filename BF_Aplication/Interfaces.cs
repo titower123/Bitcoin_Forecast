@@ -1,7 +1,8 @@
-﻿namespace Bitcoin_Forecast.Application;
+﻿using Bitcoin_Forecast.Core.Instrument;
+using System.Diagnostics.Metrics;
+namespace Bitcoin_Forecast.Application;
 
-public interface IService;
 public interface IBitcoinPriceRepository
 {
-    Task<List<Instrument>> GetBitcoinPricesAsync(DateTime startDate, DateTime endDate);
+    Task<List<Instrument>> GetBitcoinPrices(DateTime Date);
 }

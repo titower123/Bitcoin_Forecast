@@ -1,17 +1,10 @@
-﻿using BF_Core.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BF_Core.DTOs
+﻿namespace Bitcoin_Forecast.Core.DTOs
 {
     public class UserDTO
     {
         public Id Id { get; set; }
         public string Name { get; set; }
-        public string Partfolio { get; set; }
+        public string Portfolio { get; set; }
 
 
         public static implicit operator UserDTO(User other)=>
@@ -19,7 +12,7 @@ namespace BF_Core.DTOs
             { 
                 Id = other.Id, 
                 Name = other.Name, 
-                Partfolio = other.Partfolio 
+                Portfolio = other.Portfolio 
             };
     }
 }

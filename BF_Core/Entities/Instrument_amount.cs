@@ -1,17 +1,11 @@
-﻿using Bitcoin_Forecast.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BF_Core.Entities
+﻿namespace Bitcoin_Forecast.Core.Entities
 {
     public class Instrument_amount
     {
-        public int Amount { get; set; }
+        public int Counter { get; set; }
         public Portfolio Portfolio { get; set; }
+        public Instrument Instrument { get; set; }
 
-        public virtual ICollection<Instrument_amount> Instruments_amount { get; set; }
+        public virtual ICollection<Instrument> Instruments { get; set; }
     }
 }

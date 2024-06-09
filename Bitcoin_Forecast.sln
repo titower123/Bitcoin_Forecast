@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BF_Core", "BF_Core\BF_Core.csproj", "{E7529A6F-F758-49EC-AE3A-7C1D2632FA97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bitcoin_Forecast_Core", "BF_Core\Bitcoin_Forecast_Core.csproj", "{E7529A6F-F758-49EC-AE3A-7C1D2632FA97}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BF_Application", "BF_Aplication\BF_Application.csproj", "{F1085B74-39D9-4089-A96E-EEE58FF7703C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bitcoin_Forecast_Application", "BF_Aplication\Bitcoin_Forecast_Application.csproj", "{F1085B74-39D9-4089-A96E-EEE58FF7703C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BF_Api", "BF_Api\BF_Api.csproj", "{F0622CDD-262F-49A6-85C2-714A4B92E7E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bitcoin_Forecast_Applicationtests", "BF_Applicationtests\Bitcoin_Forecast_Applicationtests.csproj", "{BAB808B4-5C94-4AC3-B4B0-EB89788D135F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BF_Applicationtests", "BF_Applicationtests\BF_Applicationtests.csproj", "{BAB808B4-5C94-4AC3-B4B0-EB89788D135F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitcoin_Forecast_Infrastructure", "Bitcoin_Forecast_Infrastructure\Bitcoin_Forecast_Infrastructure.csproj", "{5DD8A0F7-9117-4C40-AFCA-290A18FB67F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bitcoin_Forecast_Api", "Bitcoin_Forecast_Api\Bitcoin_Forecast_Api.csproj", "{8347E50B-90D9-4338-86B2-E2D4A3A187EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0D64A864-F80E-42A2-AA89-4DABE564FF8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +29,18 @@ Global
 		{F1085B74-39D9-4089-A96E-EEE58FF7703C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1085B74-39D9-4089-A96E-EEE58FF7703C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1085B74-39D9-4089-A96E-EEE58FF7703C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F0622CDD-262F-49A6-85C2-714A4B92E7E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F0622CDD-262F-49A6-85C2-714A4B92E7E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F0622CDD-262F-49A6-85C2-714A4B92E7E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F0622CDD-262F-49A6-85C2-714A4B92E7E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BAB808B4-5C94-4AC3-B4B0-EB89788D135F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BAB808B4-5C94-4AC3-B4B0-EB89788D135F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAB808B4-5C94-4AC3-B4B0-EB89788D135F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BAB808B4-5C94-4AC3-B4B0-EB89788D135F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DD8A0F7-9117-4C40-AFCA-290A18FB67F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DD8A0F7-9117-4C40-AFCA-290A18FB67F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DD8A0F7-9117-4C40-AFCA-290A18FB67F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DD8A0F7-9117-4C40-AFCA-290A18FB67F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8347E50B-90D9-4338-86B2-E2D4A3A187EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8347E50B-90D9-4338-86B2-E2D4A3A187EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8347E50B-90D9-4338-86B2-E2D4A3A187EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8347E50B-90D9-4338-86B2-E2D4A3A187EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
