@@ -10,7 +10,7 @@
         public double LastPrice { get; set; }
         public string PriceHistory { get; set; }
 
-
+        public bool IsInPortfolio { get; set; }
 
 
     }
