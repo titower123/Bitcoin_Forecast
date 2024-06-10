@@ -3,8 +3,9 @@
     public class Portfolio : IEntity
     {
         public Id Id { get; set; }
-        public User User { get; set; }
-        public virtual ICollection<Instrument_amount> Instruments { get; set; }
+        public User UserName { get; set; }
+        public string Name { get; set; }
+        public virtual ICollection<Instrument_Amount> Instruments { get; set; }
 
     }
 }

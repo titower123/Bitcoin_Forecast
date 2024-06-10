@@ -5,11 +5,11 @@
         public Id Id { get; set; }
         public User User { get; set; }
 
-        public static implicit operator PortfolioDTO(Portfolio other) =>
+        public static implicit operator PortfolioDTO(Entities.Portfolio other) =>
             new()
             {
                 Id = other.Id,
-                User = other.User
+                User = other.UserName
             };
     }
 }

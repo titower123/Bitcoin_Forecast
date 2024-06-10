@@ -1,49 +1,61 @@
 ﻿using Bitcoin_Forecast.Core.Exceptions;
+using Bitcoin_Forecast.Core.Entities;
 
-namespace Bitcoin_Forecast.Application.Portfolio;
 
-public class ProjectService(Quantity<Core.Entities.Portfolio> quantity) : IService
+namespace Bitcoin_Forecast.Application.Portfolios;
+
+public class PortfolioService(IRepository<Portfolio> repository) : IService
 {
-    private IRepository<PortfolioDTO> Quantity { get; init; } = quantity;
+    private IRepository<Portfolio> Repository { get; init; } = repository;
 
-    public async Task<IEnumerable<PortfolioDTO>> GetProjectsAsync(CancellationToken cancellationToken = default) =>
-        (await Quantity.Get(cancellationToken)).Select(x => (PortfolioDTO)x);
-
-    public async Task<IEnumerable<PortfolioDTO>> GetProjectsDevicesAsync(Guid projectId, CancellationToken cancellationToken = default)
+    public async Task CreatePortfolio(string newUser, CancellationToken cancellationToken = default)
     {
-        var potentialQuantity = (await Quantity.GetChoice(x => x.Id.Value == projectId, cancellationToken)).FirstOrDefault() ??
-            throw new ApiIsNotWorkingException(projectId);
-        return potentialQuantity.Devices.Cast<PortfolioDTO>();
+        var potentialCopies = await Repository.GetWithoutTracking(x => x.Name.Equals(newUser.ToLower(), StringComparison.CurrentCultureIgnoreCase), cancellationToken);
+        if (potentialCopies.Any())
+            throw new SamePortfolioException(newUser);
+        await Repository.Add(new() { Name = newUser.Trim() }, cancellationToken);
     }
-
-    public async Task<IEnumerable<PortfolioDTO>> GetBitcointQuantityAsync(Guid projectId, CancellationToken cancellationToken = default)
+    public async Task BuyInstruments(Guid portfolioId, Instrument_Amount instrument, CancellationToken cancellationToken = default)
     {
-        var potentialQuantity = (await Quantity.GetChoice(x => x.Id.Value == projectId, cancellationToken)).FirstOrDefault() ??
-            throw new CantDeterminePlanException(projectId);
-        return potentialQuantity.Devices.Cast<PortfolioDTO>();
-    }
+        var portfolio = (await Repository.Get(x => x.Id.Value == portfolioId, cancellationToken)).FirstOrDefault() ??
+            throw new PortfolioDoesntExistException(portfolioId);
 
-    public async Task CreateOrUpdateQuantityAsync(PortfolioDTO project, CancellationToken cancellationToken = default)
-    {
-        Quantity localProj;
-        if (project.Id is not null)
-        {
-            localProj = (await Quantity.Get(x => x.Id.Value == project.Id.Value, cancellationToken)).FirstOrDefault() ??
-                throw new CantDeterminePlanException(project.Id.Value);
-            localProj.Id = project.Id;
-            localProj.User = project.User;
-        }
-        else
-            localProj = new()
+        var oldInstrument = portfolio.Instruments.FirstOrDefault(x => x.Instrument == instrument.Instrument);
+        if (oldInstrument is null)
+            portfolio.Instruments.Add(new()
             {
-                Name = project.Name,
-                Budget = project.Budget,
-                Deadline = project.Deadline,
-            };
-
-        if (localProj.Id is null)
-            await Quantity.Add(localProj, cancellationToken);
+                Instrument = instrument.Instrument,
+                Amount = instrument.Amount
+            });
         else
-            await Quantity.Update(localProj, cancellationToken);
+            oldInstrument.Amount += instrument.Amount;
+
+        await Repository.Update(portfolio, cancellationToken);
+    }
+
+    public async Task<IEnumerable<Portfolio>> GetBitcointQuantityAsync(Guid projectId, CancellationToken cancellationToken = default)
+    {
+        var potentialQuantity = (await Repository.Get(x => x.Id.Value == projectId, cancellationToken)).FirstOrDefault() ??
+            throw new CantDeterminePlanException(projectId);
+        return potentialQuantity.Instruments.Cast<Portfolio>();
+    }
+
+    public async Task SellInstruments(Guid portfolioId, Guid instrumentId, Instrument_Amount instrument, CancellationToken cancellationToken = default)
+    {
+        var portfolio = (await Repository.Get(x => x.Id.Value == portfolioId, cancellationToken)).FirstOrDefault() ??
+            throw new PortfolioDoesntExistException(portfolioId);
+
+        var oldInstrument = portfolio.Instruments.FirstOrDefault(x => x.Instrument == instrument.Instrument) ??
+            throw new InstrumentNotFoundException(instrumentId);
+
+        if ((oldInstrument.Amount - instrument.Amount) >= 0)
+            oldInstrument.Amount -= instrument.Amount;
+        else
+            throw new ImposibleToSellException(instrumentId, instrument.Amount);
+
+        if (oldInstrument.Amount == 0)
+            portfolio.Instruments.Remove(oldInstrument);
+
+        await Repository.Update(portfolio, cancellationToken);
     }
 }

@@ -1,8 +1,5 @@
 using Bitcoin_Forecast_Api.Endpoints;
-using Bitcoin_Forecast_Infrastructure.Db;
-using Bitcoin_Forecast_Api.Application;
 using Bitcoin_Forecast.Core;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var entityTypes = typeof(IEntity).Assembly
@@ -34,7 +31,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapProjectEndpoints();
+app.PortfolioEndpoints();
 
 app.Run();
 

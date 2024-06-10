@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
-using Bitcoin_Forecast.Application.Projects;
+using Bitcoin_Forecast;
 using Bitcoin_Forecast.Core.DTOs;
 
 namespace Bitcoin_Forecast_Api.Endpoints;
@@ -8,13 +8,13 @@ namespace Bitcoin_Forecast_Api.Endpoints;
 public static class InstrumentEndpoint
 {
 
-    public static void MapProjectEndpoints(this IEndpointRouteBuilder routes)
+    public static void PortfolioEndpoints(this IEndpointRouteBuilder routes)
     {
-        routes.MapGet("/projects", GetPrediction);
-        routes.MapPost("/projects/", AddDecision);
+        routes.MapPost("/portfolio/create", AddDecision).WithTags("Portfolio");
+        routes.MapGet("/portfolios", GetPrediction).WithTags("Portfolios");
     }
-
-    private static async Task<IResult> AddProject([FromBody] ProjectDTO projectDTO, ProjectService service, CancellationToken cancellationToken)
+    [HttpPost]
+    private static async Task<IResult> AddDecision(Bitcoin_Forecast.Core.DTOs.Portfolio portfolioDTO, PortfolioService service, CancellationToken cancellationToken)
     {
         try
         {
@@ -27,7 +27,7 @@ public static class InstrumentEndpoint
         }
     }
 
-    private static async Task<IResult> GetProjects(ProjectService service, CancellationToken cancellationToken)
+    private static async Task<IResult> GetPrediction(ProjectService service, CancellationToken cancellationToken)
     {
         try
         {

@@ -23,4 +23,6 @@ public interface IRepository<TEntity> where TEntity : class, IEntity
     Task<IEnumerable<TEntity>> Get(Func<TEntity, bool> predicate, CancellationToken cancellationToken);
     Task<IEnumerable<TEntity>> BitcoinPredict(Instrument instrument);
     Task<IEnumerable<TEntity>> BitcoinPredict(Func<TEntity, bool> predicate);
+    Task<IEnumerable<TEntity>> GetWithoutTracking(CancellationToken cancellationToken);
+    Task<IEnumerable<TEntity>> GetWithoutTracking(Func<TEntity, bool> predicate, CancellationToken cancellationToken);
 }
